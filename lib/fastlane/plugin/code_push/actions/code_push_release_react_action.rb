@@ -17,6 +17,9 @@ module Fastlane
           if params[:no_duplicate_release_error]
             command += "--noDuplicateReleaseError "
           end
+          if params[:bundle_name]
+            command += "-b #{params[:bundle_name]} "
+          end
           if params[:dry_run]
             UI.message("Dry run!".red + " Would have run: " + command + "\n")
           else
@@ -91,7 +94,11 @@ module Fastlane
                                       is_string: false,
                                       default_value: false,
                                       optional: true,
-                                      description: "Specifies whether to return an error if the main bundle is identical to the latest codepush release")
+                                      description: "Specifies whether to return an error if the main bundle is identical to the latest codepush release"),
+          FastlaneCore::ConfigItem.new(key: :bundle_name,
+                                      is_string: false,
+                                      optional: true,
+                                      description: "Specifies the name of the bundle file")
         ]
       end
 
